@@ -1,21 +1,14 @@
-import express, { Request, Response } from "express";
-import IQueryOptions from "./interfaces/IQueryOptions";
-import ValidateRaidBoss from "./middlewares/validateRaidBoss";
+import express from "express";
+import ValidateRaidBoss from "./middlewares/ValidateRaidBoss";
+import RaidbossController from "./application/RaidbossController";
 import DatabaseInitialization from "./database/DatabaseInitialization";
 
 const port = 3002;
 const app = express();
 app.use(express.json());
 
-app.get("/", (req: Request, res: Response) => {
-	const queryValues = req.query as unknown as IQueryOptions;
-	console.log(queryValues.name);
-	res.send(queryValues);
-});
-
-app.post("/", ValidateRaidBoss, (req: Request, res: Response) => {
-	res.send(req.body);
-});
+app.route("/").get(RaidbossController.Get).post(ValidateRaidBoss, RaidbossController.Post);
+app.route("/q").get(RaidbossController.Query);
 
 app.listen(port, () => {
 	DatabaseInitialization((uri) => {

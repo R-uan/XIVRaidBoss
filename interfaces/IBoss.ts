@@ -5,6 +5,6 @@ export default interface IBoss {
 	title: string;
 	level: number;
 	maxDifficulty: string;
-	hasSecondPhase: boolean;
+	isDoorBoss: boolean;
 	raid: IRaid;
 }

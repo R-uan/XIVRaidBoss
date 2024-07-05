@@ -13,7 +13,7 @@ const BossSchema = new mongoose.Schema<IBoss>({
 	name: { type: String, required: true },
 	level: { type: Number, required: true },
 	title: { type: String, required: true },
-	hasSecondPhase: { type: Boolean, required: true },
+	isDoorBoss: { type: Boolean, required: true },
 	maxDifficulty: { type: String, required: true },
 	raid: {
 		type: RaidSchema,

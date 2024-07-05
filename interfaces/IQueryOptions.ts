@@ -1,7 +1,7 @@
 export default interface IQueryOptions {
-	name: string | null;
-	raid: string | null;
-	tier: string | null;
-	expansion: string | null;
-	maxDifficult: string | null;
+	name?: string | null;
+	tier?: string | null;
+	level?: number | null;
+	expansion?: string | null;
+	maxDifficulty?: string | null;
 }

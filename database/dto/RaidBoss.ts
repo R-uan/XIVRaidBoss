@@ -6,7 +6,7 @@ export default class RaidBoss implements IBoss {
 	title: string;
 	level: number;
 	maxDifficulty: string;
-	hasSecondPhase: boolean;
+	isDoorBoss: boolean;
 	raid: IRaid;
 	constructor(data: IBoss) {
 		this.name = data.name;
@@ -14,6 +14,6 @@ export default class RaidBoss implements IBoss {
 		this.level = data.level;
 		this.title = data.title;
 		this.maxDifficulty = data.maxDifficulty;
-		this.hasSecondPhase = data.hasSecondPhase;
+		this.isDoorBoss = data.isDoorBoss;
 	}
 }
