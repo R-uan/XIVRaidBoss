@@ -1,4 +1,4 @@
-import IBoss from "../interfaces/IBoss";
+import IRaidBoss from "../interfaces/IRaidBoss";
 import IQueryOptions from "../interfaces/IQueryOptions";
 import RaidBossRepository from "./RaidBossRepository";
 
@@ -7,7 +7,7 @@ export default class RaidBossService {
 		return await RaidBossRepository.FindAll();
 	}
 
-	public static async Save(data: IBoss) {
+	public static async Save(data: IRaidBoss) {
 		return await RaidBossRepository.Save(data);
 	}
 

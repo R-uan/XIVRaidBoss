@@ -1,4 +1,4 @@
-import IBoss from "../../interfaces/IBoss";
+import IBoss from "../../interfaces/IRaidBoss";
 import IRaid from "../../interfaces/IRaid";
 
 export default class RaidBoss implements IBoss {

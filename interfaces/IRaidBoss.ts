@@ -1,6 +1,6 @@
 import IRaid from "./IRaid";
 
-export default interface IBoss {
+export default interface IRaidBoss {
 	name: string;
 	title: string;
 	level: number;

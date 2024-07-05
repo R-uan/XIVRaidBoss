@@ -1,4 +1,4 @@
-import IBoss from "../interfaces/IBoss";
+import IRaidBoss from "../interfaces/IRaidBoss";
 import { NextFunction, Request, Response } from "express";
 import BadRequestResponse from "../utils/ResponseBodies/BadRequestResponse";
 import IRaidBossValidationError, { IRaidValidationError } from "../interfaces/IRaidBossValidationError";
@@ -18,7 +18,7 @@ export function ValidateRaidFields(raid: IRaid): IRaidValidationError | string |
 	return Object.keys(errors).length > 0 ? errors : null;
 }
 
-export function ValidadeBossFields(boss: IBoss) {
+export function ValidadeBossFields(boss: IRaidBoss) {
 	const errors: IRaidBossValidationError = {};
 	const { name, isDoorBoss, level, maxDifficulty, title } = boss;
 
@@ -32,7 +32,7 @@ export function ValidadeBossFields(boss: IBoss) {
 }
 
 export default function ValidateRaidBoss(req: Request, res: Response, next: NextFunction) {
-	const body = req.body as IBoss;
+	const body = req.body as IRaidBoss;
 	console.log("Hello");
 	let bossFieldsValidation = ValidadeBossFields(body);
 	const raidFieldsValidation = ValidateRaidFields(body.raid);

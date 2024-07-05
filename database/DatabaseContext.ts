@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import IBoss from "../interfaces/IBoss";
+import IRaidBoss from "../interfaces/IRaidBoss";
 import IRaid from "../interfaces/IRaid";
 
 const RaidSchema = new mongoose.Schema<IRaid>({
@@ -9,7 +9,7 @@ const RaidSchema = new mongoose.Schema<IRaid>({
 	abbreviation: { type: String, required: true },
 });
 
-const BossSchema = new mongoose.Schema<IBoss>({
+const BossSchema = new mongoose.Schema<IRaidBoss>({
 	name: { type: String, required: true },
 	level: { type: Number, required: true },
 	title: { type: String, required: true },
