@@ -3,7 +3,7 @@ export default interface IRaidBossValidationError {
 	title?: string;
 	level?: string;
 	maxDifficulty?: string;
-	hasSecondPhase?: string;
+	isDoorBoss?: string;
 	raid?: IRaidValidationError | string;
 }
 

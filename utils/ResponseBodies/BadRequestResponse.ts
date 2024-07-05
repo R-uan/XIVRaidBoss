@@ -3,8 +3,7 @@ export default class BadRequestResponse {
 	code: number = 400;
 	payload: {};
 
-	constructor(message: string, payload: Object) {
-		this.message = message;
+	constructor(payload: Object) {
 		this.payload = payload;
 	}
 }

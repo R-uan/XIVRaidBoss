@@ -2,55 +2,46 @@ import IBoss from "../interfaces/IBoss";
 import { NextFunction, Request, Response } from "express";
 import BadRequestResponse from "../utils/ResponseBodies/BadRequestResponse";
 import IRaidBossValidationError, { IRaidValidationError } from "../interfaces/IRaidBossValidationError";
+import IRaid from "../interfaces/IRaid";
+
+export function ValidateRaidFields(raid: IRaid): IRaidValidationError | string | null {
+	if (raid == null) return "Raid information is required.";
+
+	const errors: IRaidValidationError = {};
+	const { abbreviation, expansion, name, tier } = raid;
+
+	if (!name) errors.name = "Raid name is required.";
+	if (!tier) errors.tier = "Raid tier is required.";
+	if (!expansion) errors.expansion = "Raid expansion is required.";
+	if (!abbreviation) errors.abbreviation = "Raid abbreviation is required.";
+
+	return Object.keys(errors).length > 0 ? errors : null;
+}
+
+export function ValidadeBossFields(boss: IBoss) {
+	const errors: IRaidBossValidationError = {};
+	const { name, isDoorBoss, level, maxDifficulty, title } = boss;
+
+	if (!name) errors.name = "Boss name is required.";
+	if (!title) errors.title = "Boss title is required.";
+	if (isDoorBoss == null) errors.isDoorBoss = "isDoorBoss is required.";
+	if (!maxDifficulty) errors.maxDifficulty = "maxDifficulty is required.";
+	if (!level) errors.level = "Level is required and should be 50 or higher.";
+
+	return errors;
+}
 
 export default function ValidateRaidBoss(req: Request, res: Response, next: NextFunction) {
-	let validationErrors: IRaidBossValidationError = {};
+	const body = req.body as IBoss;
+	console.log("Hello");
+	let bossFieldsValidation = ValidadeBossFields(body);
+	const raidFieldsValidation = ValidateRaidFields(body.raid);
+	if (raidFieldsValidation) bossFieldsValidation.raid = raidFieldsValidation;
 
-	const { name, hasSecondPhase, level, maxDifficulty, raid, title } = req.body as IBoss;
-	if (!name || name.length < 3) {
-		validationErrors.name = "Boss name is required and should have a length higher than 3";
-	}
-
-	if (!title || title.length < 3) {
-		validationErrors.title = "Boss title is required and should have a length higher than 3.";
-	}
-	if (!hasSecondPhase) {
-		validationErrors.hasSecondPhase = "hasSecondPhase is required.";
-	}
-	if (!maxDifficulty || maxDifficulty.length < 6) {
-		validationErrors.maxDifficulty = "Name is required and should have a length higher than 6.";
-	}
-
-	if (!level || level < 50) {
-		validationErrors.level = "Level should be 50 or higher.";
-	}
-
-	if (!raid) {
-		validationErrors.raid = "Raid information is required.";
-	} else {
-		const raidValidationErrors: IRaidValidationError = {};
-		if (!raid.name || raid.name.length < 10) {
-			raidValidationErrors.name = "Raid name is required.";
-		}
-
-		if (!raid.tier || raid.tier.length < 4) {
-			raidValidationErrors.tier = "Raid tier is required.";
-		}
-
-		if (!raid.expansion || raid.expansion.length < 4) {
-			raidValidationErrors.expansion = "Raid expansion is required.";
-		}
-
-		if (!raid.abbreviation || raid.abbreviation.length < 3) {
-			raidValidationErrors.abbreviation = "Raid abbreviation is required.";
-		}
-
-		validationErrors.raid = raidValidationErrors;
-	}
-
-	if (validationErrors.toString().length > 0) {
-		const response = new BadRequestResponse("Invalid bot received.", validationErrors);
+	if (Object.keys(bossFieldsValidation).length > 0) {
+		const response = new BadRequestResponse(bossFieldsValidation);
 		return res.status(400).json(response);
 	}
+
 	next();
 }

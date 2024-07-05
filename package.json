@@ -6,12 +6,23 @@
 	"author": "R-uan",
 	"license": "MIT",
 	"scripts": {
+		"test": "jest",
 		"dev": "nodemon ./app.ts"
 	},
 	"dependencies": {
 		"@types/express": "^4.17.21",
+		"@types/jest": "^29.5.12",
 		"dotenv": "^16.4.5",
 		"express": "^4.19.2",
 		"mongoose": "^8.4.4"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.24.7",
+		"@babel/preset-env": "^7.24.7",
+		"@babel/preset-typescript": "^7.24.7",
+		"babel-jest": "^29.7.0",
+		"jest": "^29.7.0",
+		"ts-jest": "^29.1.5",
+		"typescript": "^5.5.3"
 	}
 }
